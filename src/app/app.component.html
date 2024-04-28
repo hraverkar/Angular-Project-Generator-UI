@@ -1,10 +1,16 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>Angular App Generator</span>
-        <a mat-button [routerLink]="['/dashboard']">Dashboard</a>
+        <button mat-flat-button color="primary" [routerLink]="['']">
+            <a><img src='../../assets/angular-white-transparent.svg' width="35px" height="35px" alt="Italian Trulli"></a> {{title}}</button>
+        <!-- <span>Angular App Generator</span> -->
+        <a mat-flat-button color="primary" [routerLink]="['/dashboard']">Dashboard</a>
         <span class="example-spacer"></span>
-        <a mat-button [routerLink]="['/docs']">Docs</a>
+        <a mat-flat-button color="primary" [routerLink]="['/docs']">Docs</a>
 
     </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#fff" type="square-loader" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

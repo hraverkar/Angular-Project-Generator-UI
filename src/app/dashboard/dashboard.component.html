@@ -12,26 +12,34 @@
         </mat-card-header>
         <mat-card-content>
             <form #appForm="ngForm">
-                <mat-form-field style="margin-right: 10px; width: 100%;">
+                <mat-form-field style="margin-right: 10px; width: 100%;" appearance="outline">
                     <input matInput type="text" [(ngModel)]="appConfiguration.name" name="appName"
                         placeholder="Enter project name" required>
                 </mat-form-field>
-                <mat-card-actions>
-                    <button mat-button type="submit" color="primary" (click)="generateApp()"
-                        [disabled]="!appForm.valid">Open
-                        StackBlitz
+                <mat-divider></mat-divider>
+                <mat-card-actions class="marginLeft">
+                    <button mat-raised-button color="accent" type="submit" (click)="generateApp()"
+                        [disabled]="!appForm.valid" class="margin" matTooltip="Open StackBlitz"><i
+                            class="fa fa-bolt fa-fw"></i>
                     </button>
-                    <button mat-button color="secondary" (click)="downloadApp()" [disabled]="!appForm.valid">Download
-                        App</button>
+
+                    <button mat-raised-button color="accent" (click)="downloadApp()"
+                        aria-label="Example icon button with a home icon" [disabled]="!appForm.valid" class="margin"
+                        matTooltip="Download App"><i class="fa-solid fa-download fa-fw"></i>
+                    </button>
+
+
+                    <button mat-flat-button color="accent" (click)="createDialog()" matTooltip="Create from source"><i
+                            class="fa-solid fa-code-fork"></i></button>
+
                 </mat-card-actions>
             </form>
         </mat-card-content>
     </mat-card>
 
-    <button mat-button color="secondary" (click)="createDialog()">Create From Source</button>
+    <br>
 
-
-    <svg preserveAspectRatio="none">
+    <svg class="background" preserveAspectRatio="none">
 
     </svg>
 

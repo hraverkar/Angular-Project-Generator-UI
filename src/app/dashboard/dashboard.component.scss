@@ -4,14 +4,16 @@
 
 ::ng-deep .node circle {
     fill: #fff;
-    stroke: steelblue;
+    // stroke: steelblue;
+    stroke: #673ab7;
     stroke-width: 3px;
 }
 
 
 ::ng-deep .selected-node circle {
     fill: black;
-    stroke: steelblue;
+    //stroke: steelblue;
+    stroke: purple;
     stroke-width: 3px;
 }
 
@@ -21,7 +23,8 @@
 
 ::ng-deep .link {
     fill: none;
-    stroke: #ccc;
+    // stroke: #ccc;
+    stroke: #673ab7;
     stroke-width: 2px;
 }
 
@@ -32,7 +35,7 @@
     position: absolute;
     z-index: 10;
     padding: 12px 0;
-    width: 240px;
+    width: 160px;
     background-color: #fff;
     border: solid 1px #dfdfdf;
     box-shadow: 1px 1px 2px #cfcfcf;
@@ -60,13 +63,15 @@
 .context-menu__link {
     display: block;
     padding: 4px 12px;
-    color: #0066aa;
+    // color: #0066aa;
+    color: #673ab7;
     text-decoration: none;
 }
 
 .context-menu__link:hover {
     color: #fff;
-    background-color: #0066aa;
+    background-color: #673ab7;
+    // background-color: #0066aa;
 }
 
 .example-card {
@@ -79,6 +84,22 @@
 
 .center {
     margin: auto;
-    width: 20%;
+    width: 35%;
     padding-bottom: 0px;
+}
+
+.background {
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1' gradientTransform='rotate(161,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%23C8C7C7'/%3E%3Cstop offset='1' stop-color='%23D8CFD6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23ffffff' cx='4' cy='4' r='4'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.75'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    border-width: 3px;
+    border-color: red;
+}
+
+.margin {
+    margin-right: 2px;
+}
+
+.marginLeft{
+    margin-left: 8rem;
 }

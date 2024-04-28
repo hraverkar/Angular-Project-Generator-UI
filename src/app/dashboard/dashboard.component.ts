@@ -118,7 +118,8 @@ export class DashboardComponent implements AfterContentInit {
     modalData.action = action;
 
     const dialogRef = this.dialog.open(NewDialogComponent, {
-      width: '400px',
+      width: '600px',
+      height: '500px',
       data: modalData,
     });
 

@@ -7,11 +7,11 @@
                 <mat-list role="list">
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'moduleWithRoute'"
+                            <mat-radio-button color="primary" [value]="'moduleWithRoute'"
                                 matTooltip="Generate lazy module with component and route"
                                 [matTooltipPosition]="'right'">Module with route
                             </mat-radio-button>
-                            <mat-form-field class="full-width">
+                            <mat-form-field class="full-width" appearance="outline">
                                 <input matInput [(ngModel)]="selectedNode.route" name="moduleRouteName"
                                     placeholder="Enter Route name" [disabled]="selected != 'moduleWithRoute'"
                                     cdkFocusInitial>
@@ -21,42 +21,42 @@
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'module'" matTooltip="Generate new module with component"
+                            <mat-radio-button color="primary" [value]="'module'" matTooltip="Generate new module with component"
                                 [matTooltipPosition]="'right'">Module</mat-radio-button>
                         </div>
                     </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'standaloneComponent'" matTooltip="Generate Standalone Component"
+                            <mat-radio-button color="primary" [value]="'standaloneComponent'" matTooltip="Generate Standalone Component"
                                 [matTooltipPosition]="'right'">Standalone Component</mat-radio-button>
                         </div>
                     </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'component'" matTooltip="Generate new component"
+                            <mat-radio-button color="primary" [value]="'component'" matTooltip="Generate new component"
                                 [matTooltipPosition]="'right'">Component</mat-radio-button>
                         </div>
                     </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'service'" matTooltip="Generate new service class"
+                            <mat-radio-button color="primary" [value]="'service'" matTooltip="Generate new service class"
                                 [matTooltipPosition]="'right'">Service</mat-radio-button>
                         </div>
                     </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'pipe'" matTooltip="Generate new pipe class"
+                            <mat-radio-button color="primary" [value]="'pipe'" matTooltip="Generate new pipe class"
                                 [matTooltipPosition]="'right'">Pipe</mat-radio-button>
                         </div>
                     </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <div>
-                            <mat-radio-button [value]="'directive'" matTooltip="Generate new directive class"
+                            <mat-radio-button color="primary" [value]="'directive'" matTooltip="Generate new directive class"
                                 [matTooltipPosition]="'right'">Directive</mat-radio-button>
                         </div>
 
@@ -67,7 +67,7 @@
             </mat-radio-group>
         </p>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
             <input matInput [(ngModel)]="selectedNode.name" placeholder="Enter name" name="itemName" required>
         </mat-form-field>
 

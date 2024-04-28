@@ -10,6 +10,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MaterialModule } from './modules/material/material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ImportDialogComponent,
     DashboardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule, NgxSpinnerModule ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
