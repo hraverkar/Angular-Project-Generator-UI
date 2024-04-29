@@ -12,19 +12,90 @@ export class DataService {
 
   generateApp(config: AppConfiguration) {
     console.log(JSON.stringify(config));
-
+    var configu = {
+        "name": "my-project",
+        "nodeConfiguration": {
+          "name": "app",
+          "type": 0,
+          "route": "",
+          "modulePath": "",
+          "parentModule": "",
+          "children": [
+            {
+              "name": "login",
+              "type": 1,
+              "route": "login",
+              "parentModule": "app",
+              "modulePath": "login",
+              "children": [
+                {
+                  "name": "register",
+                  "type": 2,
+                  "route": "",
+                  "parentModule": "login",
+                  "modulePath": "login/register"
+                }
+              ]
+            },
+            {
+              "name": "home",
+              "type": 0,
+              "route": "",
+              "parentModule": "app",
+              "modulePath": "home"
+            }
+          ]
+        }
+      }
     const url = environment.baseUrl + ApiRoutes.StackBlitzApp;
     // return this.httpClient.post(url, config, {
     //     responseType: 'blob'
     // });
-    return this.httpClient.post(url, config);
+    return this.httpClient.post(url, configu);
   }
 
   downloadApp(config: AppConfiguration) {
+
+
+    console.log(JSON.stringify(config));
+
+    var configu = {
+        "name": "my-project",
+        "nodeConfiguration": {
+          "name": "app",
+          "type": 0,
+          "route": "",
+          "modulePath": "",
+          "parentModule": "",
+          "children": [
+            {
+              "name": "login",
+              "type": 1,
+              "route": "login",
+              "parentModule": "app",
+              "modulePath": "login",
+              "children": [
+                {
+                  "name": "register",
+                  "type": 2,
+                  "route": "",
+                  "parentModule": "login",
+                  "modulePath": "login/register"
+                }
+              ]
+            },
+            {
+              "name": "home",
+              "type": 0,
+              "route": "",
+              "parentModule": "app",
+              "modulePath": "home"
+            }
+          ]
+        }
+      }
     const url = environment.baseUrl + ApiRoutes.DownloadApp;
-    return this.httpClient.post(url, config, {
-      responseType: 'blob',
-    });
+    return this.httpClient.post(url, configu);
     // return this.httpClient.post(url, config);
   }
 }

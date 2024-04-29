@@ -487,8 +487,30 @@ export class DashboardComponent implements AfterContentInit {
     this.showSpinner = true;
     this.dataService.downloadApp(this.appConfiguration).subscribe(
       (response: any) => {
-        saveAs(response, this.appConfiguration.name + '.zip');
+        // saveAs(response, this.appConfiguration.name + '.zip');
         console.log(response);
+        var y = this.isValidZipFile(response.fileContents);
+        const blob = new Blob([response], { type: 'application/zip' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'downloaded_file.zip';
+        link.click();
+
+        // this.showSpinner = false;
+        //const byteArrays = atob(response.fileContents).split('').map(char => char.charCodeAt(0));
+        // const byteArray = new Uint8Array(response.fileContents);
+
+        // const blob = new Blob([byteArray], { type: 'application/zip' });
+        // saveAs(blob, response.fileDownloadName);
+        // const url = window.URL.createObjectURL(blob);
+
+        // const a = document.createElement('a');
+        // a.href = url;
+        // a.download = this.appConfiguration.name + '.zip';
+        // document.body.appendChild(a);
+        // a.click();
+        // document.body.removeChild(a);
+        // window.URL.revokeObjectURL(url);
         this.showSpinner = false;
       },
       (err) => {
@@ -497,5 +519,28 @@ export class DashboardComponent implements AfterContentInit {
         console.error(err);
       }
     );
+  }
+
+  public isValidZipFile(data: ArrayBuffer): boolean {
+    // Check if ArrayBuffer has at least 4 bytes
+    if (data.byteLength < 4) {
+      return false;
+    }
+
+    // Convert ArrayBuffer to Uint8Array for easier manipulation
+    const byteArray = new Uint8Array(data);
+
+    // Check the ZIP file signature ("PK\x03\x04")
+    if (
+      String.fromCharCode(byteArray[0]) !== 'P' ||
+      String.fromCharCode(byteArray[1]) !== 'K' ||
+      byteArray[2] !== 3 ||
+      byteArray[3] !== 4
+    ) {
+      return false;
+    }
+
+    // If all checks pass, consider the ZIP file valid
+    return true;
   }
 }
