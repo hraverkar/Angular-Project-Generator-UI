@@ -4,15 +4,13 @@ import { ApiRoutes } from './models/api-routes';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './models/app-config.model';
 import { Observable } from 'rxjs';
-import { GenRestClientService } from './services/gen-rest-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   constructor(
-    private httpClient: HttpClient,
-    private genRestClient: GenRestClientService
+    private httpClient: HttpClient
   ) {}
 
   generateApp(config: AppConfiguration) {
