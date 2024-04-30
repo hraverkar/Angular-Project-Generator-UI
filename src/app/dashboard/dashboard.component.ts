@@ -14,6 +14,7 @@ import { DataService } from '../data.service';
 
 import sdk from '@stackblitz/sdk';
 import * as YAML from 'js-yaml';
+import JSZip from 'jszip';
 
 @Component({
   selector: 'app-dashboard',
@@ -487,30 +488,10 @@ export class DashboardComponent implements AfterContentInit {
     this.showSpinner = true;
     this.dataService.downloadApp(this.appConfiguration).subscribe(
       (response: any) => {
-        // saveAs(response, this.appConfiguration.name + '.zip');
-        console.log(response);
-        var y = this.isValidZipFile(response.fileContents);
-        const blob = new Blob([response], { type: 'application/zip' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'downloaded_file.zip';
-        link.click();
-
-        // this.showSpinner = false;
-        //const byteArrays = atob(response.fileContents).split('').map(char => char.charCodeAt(0));
-        // const byteArray = new Uint8Array(response.fileContents);
-
-        // const blob = new Blob([byteArray], { type: 'application/zip' });
-        // saveAs(blob, response.fileDownloadName);
-        // const url = window.URL.createObjectURL(blob);
-
-        // const a = document.createElement('a');
-        // a.href = url;
-        // a.download = this.appConfiguration.name + '.zip';
-        // document.body.appendChild(a);
-        // a.click();
-        // document.body.removeChild(a);
-        // window.URL.revokeObjectURL(url);
+        var blob = new Blob([response], {
+          type: 'application/zip; charset=utf-8',
+        });
+        saveAs(blob, this.appConfiguration.name + '.zip');
         this.showSpinner = false;
       },
       (err) => {
@@ -521,26 +502,10 @@ export class DashboardComponent implements AfterContentInit {
     );
   }
 
-  public isValidZipFile(data: ArrayBuffer): boolean {
-    // Check if ArrayBuffer has at least 4 bytes
-    if (data.byteLength < 4) {
-      return false;
-    }
-
-    // Convert ArrayBuffer to Uint8Array for easier manipulation
-    const byteArray = new Uint8Array(data);
-
-    // Check the ZIP file signature ("PK\x03\x04")
-    if (
-      String.fromCharCode(byteArray[0]) !== 'P' ||
-      String.fromCharCode(byteArray[1]) !== 'K' ||
-      byteArray[2] !== 3 ||
-      byteArray[3] !== 4
-    ) {
-      return false;
-    }
-
-    // If all checks pass, consider the ZIP file valid
-    return true;
+  public donwloadBlob() {
+    var fileName = '3b2f604e-72f7-45ae-b68f-d71f5a5a7b54_my-project.zip';
+    this.dataService.downloadFile(fileName).subscribe((res) => {
+      saveAs(res, this.appConfiguration.name + '.zip');
+    });
   }
 }

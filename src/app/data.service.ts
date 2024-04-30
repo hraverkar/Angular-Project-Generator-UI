@@ -3,99 +3,34 @@ import { environment } from '../environments/environment.development';
 import { ApiRoutes } from './models/api-routes';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './models/app-config.model';
+import { Observable } from 'rxjs';
+import { GenRestClientService } from './services/gen-rest-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private genRestClient: GenRestClientService
+  ) {}
 
   generateApp(config: AppConfiguration) {
     console.log(JSON.stringify(config));
-    var configu = {
-        "name": "my-project",
-        "nodeConfiguration": {
-          "name": "app",
-          "type": 0,
-          "route": "",
-          "modulePath": "",
-          "parentModule": "",
-          "children": [
-            {
-              "name": "login",
-              "type": 1,
-              "route": "login",
-              "parentModule": "app",
-              "modulePath": "login",
-              "children": [
-                {
-                  "name": "register",
-                  "type": 2,
-                  "route": "",
-                  "parentModule": "login",
-                  "modulePath": "login/register"
-                }
-              ]
-            },
-            {
-              "name": "home",
-              "type": 0,
-              "route": "",
-              "parentModule": "app",
-              "modulePath": "home"
-            }
-          ]
-        }
-      }
     const url = environment.baseUrl + ApiRoutes.StackBlitzApp;
-    // return this.httpClient.post(url, config, {
-    //     responseType: 'blob'
-    // });
-    return this.httpClient.post(url, configu);
+    return this.httpClient.post(url, config);
   }
 
-  downloadApp(config: AppConfiguration) {
-
-
+  public downloadApp(config: AppConfiguration) {
     console.log(JSON.stringify(config));
-
-    var configu = {
-        "name": "my-project",
-        "nodeConfiguration": {
-          "name": "app",
-          "type": 0,
-          "route": "",
-          "modulePath": "",
-          "parentModule": "",
-          "children": [
-            {
-              "name": "login",
-              "type": 1,
-              "route": "login",
-              "parentModule": "app",
-              "modulePath": "login",
-              "children": [
-                {
-                  "name": "register",
-                  "type": 2,
-                  "route": "",
-                  "parentModule": "login",
-                  "modulePath": "login/register"
-                }
-              ]
-            },
-            {
-              "name": "home",
-              "type": 0,
-              "route": "",
-              "parentModule": "app",
-              "modulePath": "home"
-            }
-          ]
-        }
-      }
     const url = environment.baseUrl + ApiRoutes.DownloadApp;
-    return this.httpClient.post(url, configu);
-    // return this.httpClient.post(url, config);
+    return this.httpClient.post(url, config);
+  }
+
+  public downloadFile(fileName: string): Observable<Blob> {
+    return this.httpClient.get<Blob>(
+      environment.baseUrl + `/blob-donwload-app/${fileName}`,
+      { responseType: 'blob' as 'json' }
+    );
   }
 }
