@@ -106,6 +106,7 @@ export class DashboardComponent implements AfterContentInit {
           appConfig = YAML.load(config.data);
         }
         this.appConfiguration = { ...appConfig };
+        this.downloadApp();
       });
   }
 
