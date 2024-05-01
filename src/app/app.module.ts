@@ -11,6 +11,7 @@ import { MaterialModule } from './modules/material/material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ImportDialogComponent,
     DashboardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule, NgxSpinnerModule ],
+  imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule, NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+  ToastrModule.forRoot({
+    closeButton: true,
+    timeOut: 3000,
+    newestOnTop: true,
+    progressBar: true,
+    positionClass: 'toast-bottom-right',
+  })
+   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

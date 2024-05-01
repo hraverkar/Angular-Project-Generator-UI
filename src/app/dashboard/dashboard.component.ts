@@ -15,6 +15,7 @@ import { DataService } from '../data.service';
 import sdk from '@stackblitz/sdk';
 import * as YAML from 'js-yaml';
 import JSZip from 'jszip';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,7 +45,7 @@ export class DashboardComponent implements AfterContentInit {
 
   showSpinner = false;
 
-  constructor(private dataService: DataService, public dialog: MatDialog) {}
+  constructor(private dataService: DataService, public dialog: MatDialog, private _spinnerService: NgxSpinnerService) {}
 
   ngAfterContentInit() {
     this.appConfiguration.nodeConfiguration = new NodeConfiguration();
@@ -470,14 +471,17 @@ export class DashboardComponent implements AfterContentInit {
   }
 
   generateApp() {
+    this._spinnerService.show();
     this.showSpinner = true;
     this.dataService.generateApp(this.appConfiguration).subscribe(
       (response: any) => {
         console.log(response);
         sdk.openProject(response);
         this.showSpinner = false;
+        this._spinnerService.hide();
       },
       (err) => {
+        this._spinnerService.hide();
         this.showSpinner = false;
         alert(JSON.stringify(err));
         console.error(err);
@@ -486,6 +490,7 @@ export class DashboardComponent implements AfterContentInit {
   }
 
   downloadApp() {
+    this._spinnerService.show();
     this.showSpinner = true;
     this.dataService.downloadApp(this.appConfiguration).subscribe(
       (response: any) => {
@@ -494,8 +499,10 @@ export class DashboardComponent implements AfterContentInit {
         });
         saveAs(blob, this.appConfiguration.name + '.zip');
         this.showSpinner = false;
+        this._spinnerService.hide();
       },
       (err) => {
+        this._spinnerService.hide();
         this.showSpinner = false;
         alert(JSON.stringify(err));
         console.error(err);
