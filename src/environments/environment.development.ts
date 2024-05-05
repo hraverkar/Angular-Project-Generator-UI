@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:5115',
+   baseUrl: 'https://localhost:7125/api/',
+  //  baseUrl: 'https://angular-project-generator.azurewebsites.net/api/',
+//   baseUrl1: 'https://angular-project-generator.azurewebsites.net/api/',
 };

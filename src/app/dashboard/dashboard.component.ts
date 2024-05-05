@@ -14,7 +14,6 @@ import { DataService } from '../data.service';
 
 import sdk from '@stackblitz/sdk';
 import * as YAML from 'js-yaml';
-import JSZip from 'jszip';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -23,31 +22,35 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements AfterContentInit {
-  appConfiguration: AppConfiguration = new AppConfiguration();
+  public appConfiguration: AppConfiguration = new AppConfiguration();
 
-  margin = { top: 20, right: 90, bottom: 30, left: 90 };
-  width = 0;
-  height = 0;
-  i = 0;
-  duration = 750;
-  root: any;
-  tree: any;
-  svg: any;
-  treemap: any;
-  selectedNode: any;
+  public margin = { top: 20, right: 90, bottom: 30, left: 90 };
+  public width = 0;
+  public height = 0;
+  public i = 0;
+  public duration = 750;
+  public root: any;
+  public tree: any;
+  public svg: any;
+  public treemap: any;
+  public selectedNode: any;
 
-  selectedNodeName = '';
-  newNodeName = '';
+  public selectedNodeName = '';
+  public newNodeName = '';
 
-  name: string;
+  public name: string;
 
-  isMenuOpen = false;
+  public isMenuOpen = false;
 
-  showSpinner = false;
+  public showSpinner = false;
 
-  constructor(private dataService: DataService, public dialog: MatDialog, private _spinnerService: NgxSpinnerService) {}
+  constructor(
+    private dataService: DataService,
+    public dialog: MatDialog,
+    private _spinnerService: NgxSpinnerService
+  ) {}
 
-  ngAfterContentInit() {
+  public ngAfterContentInit() {
     this.appConfiguration.nodeConfiguration = new NodeConfiguration();
     this.appConfiguration.nodeConfiguration.name = 'app';
     this.appConfiguration.nodeConfiguration.type = NodeType.module;
@@ -91,7 +94,7 @@ export class DashboardComponent implements AfterContentInit {
     console.log(this.svg);
   }
 
-  createDialog(): void {
+  public createDialog(): void {
     const dialogRef = this.dialog.open(ImportDialogComponent, {
       width: '500px',
     });
@@ -111,7 +114,7 @@ export class DashboardComponent implements AfterContentInit {
       });
   }
 
-  openDialog(action: string): void {
+  public openDialog(action: string): void {
     if (this.isMenuOpen) {
       d3.select('#my_custom_menu').style('display', 'none');
       this.isMenuOpen = false;
@@ -171,13 +174,13 @@ export class DashboardComponent implements AfterContentInit {
     });
   }
 
-  updateModulePath(newNode: NodeConfiguration) {
+  public updateModulePath(newNode: NodeConfiguration) {
     const parts = newNode.modulePath.split('/');
     parts[parts.length - 1] = newNode.name;
     newNode.modulePath = parts.join('/');
   }
 
-  update(source: any) {
+  public update(source: any) {
     // console.log(this.appConfiguration.nodeConfiguration);
 
     // Assigns the x and y position for the nodes
@@ -331,11 +334,11 @@ export class DashboardComponent implements AfterContentInit {
     });
   }
 
-  getNodeText(node: any) {
+  public getNodeText(node: any) {
     return node.name + ' (' + node.type + ')';
   }
 
-  diagonal(s: any, d: any) {
+  public diagonal(s: any, d: any) {
     const path = `M ${s.y} ${s.x}
           C ${(s.y + d.y) / 2} ${s.x},
           ${(s.y + d.y) / 2} ${d.x},
@@ -344,7 +347,7 @@ export class DashboardComponent implements AfterContentInit {
     return path;
   }
 
-  click(d: any) {
+  public click(d: any) {
     this.selectedNode = d;
     this.selectedNodeName = this.selectedNode.data.name;
 
@@ -358,7 +361,7 @@ export class DashboardComponent implements AfterContentInit {
       });
   }
 
-  addNode() {
+  public addNode() {
     if (!this.selectedNode) {
       alert('Please select parent node!');
     }
@@ -379,7 +382,7 @@ export class DashboardComponent implements AfterContentInit {
     this.update(this.selectedNode);
   }
 
-  removeNode() {
+  public removeNode() {
     const children: any[] = [];
     this.selectedNode.parent.children.forEach((child: { id: any }) => {
       if (child.id !== this.selectedNode.id) {
@@ -408,7 +411,7 @@ export class DashboardComponent implements AfterContentInit {
     }
   }
 
-  updateNodeName() {
+  public updateNodeName() {
     this.selectedNode.data.name = this.selectedNodeName;
     // console.log(this.selectedNode);
     this.svg
@@ -418,7 +421,7 @@ export class DashboardComponent implements AfterContentInit {
     this.update(this.selectedNode);
   }
 
-  addNodeWithComponent() {
+  public addNodeWithComponent() {
     if (!this.selectedNode) {
       alert('Please select parent node!');
     }
@@ -446,7 +449,7 @@ export class DashboardComponent implements AfterContentInit {
     this.update(this.selectedNode);
   }
 
-  getModulePath(node: any, newNodeName: string) {
+  public getModulePath(node: any, newNodeName: string) {
     // this.selectedNode.data.name == 'app' ? '' : this.selectedNode.data.name
     console.log(node);
 
@@ -470,12 +473,13 @@ export class DashboardComponent implements AfterContentInit {
     return fullModulePath;
   }
 
-  generateApp() {
+  public generateApp() {
     this._spinnerService.show();
     this.showSpinner = true;
     this.dataService.generateApp(this.appConfiguration).subscribe(
       (response: any) => {
         console.log(response);
+        this.replaceBackslashesWithSlashes(response.files)
         sdk.openProject(response);
         this.showSpinner = false;
         this._spinnerService.hide();
@@ -489,14 +493,13 @@ export class DashboardComponent implements AfterContentInit {
     );
   }
 
-  downloadApp() {
+  public downloadApp(): void {
     this._spinnerService.show();
     this.showSpinner = true;
     this.dataService.downloadApp(this.appConfiguration).subscribe(
-      (response: any) => {
-        var blob = new Blob([response], {
-          type: 'application/zip; charset=utf-8',
-        });
+      (response: ArrayBuffer) => {
+        // Assuming response is a Blob or ArrayBuffer
+        var blob = new Blob([response], { type: 'application/zip' });
         saveAs(blob, this.appConfiguration.name + '.zip');
         this.showSpinner = false;
         this._spinnerService.hide();
@@ -510,10 +513,17 @@ export class DashboardComponent implements AfterContentInit {
     );
   }
 
-  public donwloadBlob() {
-    var fileName = '3b2f604e-72f7-45ae-b68f-d71f5a5a7b54_my-project.zip';
-    this.dataService.downloadFile(fileName).subscribe((res) => {
-      saveAs(res, this.appConfiguration.name + '.zip');
-    });
+  public replaceBackslashesWithSlashes(obj: any): any {
+    if (obj instanceof Object) {
+      Object.keys(obj).forEach(key => {
+        const newKey = key.replace(/\\/g, '/');
+        if (newKey !== key) {
+          obj[newKey] = obj[key];
+          delete obj[key];
+        }
+        this.replaceBackslashesWithSlashes(obj[newKey]);
+      });
+    }
+    return obj;
   }
 }

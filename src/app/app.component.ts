@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'Angular-App-Generator';
+  public title = 'Angular App Generator';
 }

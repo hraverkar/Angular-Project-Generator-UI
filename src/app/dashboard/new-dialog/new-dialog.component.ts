@@ -17,11 +17,11 @@ export class NewDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public modalData: any
   ) {}
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     // console.log(this.modalData);
     if (this.modalData.action === 'update') {
       this.selectedNode = this.modalData.data;

@@ -1,4 +1,4 @@
 export enum ApiRoutes {
-  StackBlitzApp = '/generate-app',
-  DownloadApp = '/download-app',
+  StackBlitzApp = 'fileDownload/generateApp',
+  DownloadApp = 'fileDownload/downloadApp'
 }

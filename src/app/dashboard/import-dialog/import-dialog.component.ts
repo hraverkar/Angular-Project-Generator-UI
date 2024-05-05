@@ -15,9 +15,9 @@ export class ImportDialogComponent {
     @Inject(MAT_DIALOG_DATA) public modalData: any
   ) {}
 
-  onSubmit(): void {}
+  public onSubmit(): void {}
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 }

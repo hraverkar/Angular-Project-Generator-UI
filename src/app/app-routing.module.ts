@@ -7,11 +7,18 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    title: "Dashboard"
   },
   {
     path: 'docs',
     component: DocsComponent,
+    title: "Docs"
   },
+  {
+    path: '',
+    component: DashboardComponent,
+    title: "Dashboard"
+  }
 ];
 
 @NgModule({

@@ -9,26 +9,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  constructor(
-    private httpClient: HttpClient
-  ) {}
+  public constructor(private httpClient: HttpClient) {}
 
-  generateApp(config: AppConfiguration) {
-    console.log(JSON.stringify(config));
+  public generateApp(config: AppConfiguration) {
     const url = environment.baseUrl + ApiRoutes.StackBlitzApp;
     return this.httpClient.post(url, config);
   }
 
-  public downloadApp(config: AppConfiguration) {
-    console.log(JSON.stringify(config));
+  public downloadApp(config: AppConfiguration): Observable<any> {
     const url = environment.baseUrl + ApiRoutes.DownloadApp;
-    return this.httpClient.post(url, config);
-  }
-
-  public downloadFile(fileName: string): Observable<Blob> {
-    return this.httpClient.get<Blob>(
-      environment.baseUrl + `/blob-donwload-app/${fileName}`,
-      { responseType: 'blob' as 'json' }
-    );
+    return this.httpClient.post<ArrayBuffer>(url, config, {
+      responseType: 'blob' as 'json',
+    });
   }
 }
